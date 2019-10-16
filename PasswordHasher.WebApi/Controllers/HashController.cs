@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using PasswordHasher.Core;
 using PasswordHasher.WebApi.Models;
 
@@ -23,9 +24,13 @@ namespace PasswordHasher.WebApi.Controllers
         }
 
         [HttpPost]
-        public AcceptedResult Create([FromBody] CreateHashRequest request)
+        public ActionResult Create([FromBody] CreateHashRequest request)
         {
             var jobId = _jobEngine.StartJob(request.Password);
+            if (!jobId.HasValue)
+            {
+                return StatusCode((int)HttpStatusCode.ServiceUnavailable);
+            }
             return Accepted(jobId);
         }
     }

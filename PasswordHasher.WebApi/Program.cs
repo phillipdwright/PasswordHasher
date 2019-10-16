@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace PasswordHasher.WebApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        private static CancellationTokenSource WebHostTokenSource = new CancellationTokenSource();
+        public async static Task Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            await CreateWebHostBuilder(args).Build().RunAsync(WebHostTokenSource.Token);
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+
+        public static void ShutDown() => WebHostTokenSource.Cancel();
     }
 }

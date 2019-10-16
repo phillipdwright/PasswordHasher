@@ -1,3 +1,5 @@
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using PasswordHasher.Core;
@@ -33,7 +35,7 @@ namespace PasswordHasher.WebApi.Tests.Controllers
         }
 
         [Test]
-        public void Create_ReturnsJobIdFromJobEngine()
+        public void Create_GivenJobEngineReturnsId_ReturnsJobIdFromJobEngine()
         {
             var password = "A password";
             var request = new CreateHashRequest { Password = password };
@@ -42,7 +44,19 @@ namespace PasswordHasher.WebApi.Tests.Controllers
 
             var result = _classUnderTest.Create(request);
 
-            Assert.That(result.Value, Is.EqualTo(expectedJobId));
+            Assert.That(result, Has.Property(nameof(AcceptedResult.Value)).EqualTo(expectedJobId));
+        }
+
+        [Test]
+        public void Create_GivenJobEngineReturnsNoJobId_ReturnsServiceUnavailable()
+        {
+            var password = "A password";
+            var request = new CreateHashRequest { Password = password };
+            _mockJobEngine.Setup(je => je.StartJob(password)).Returns(default(int?));
+
+            var result = _classUnderTest.Create(request);
+
+            Assert.That(result, Has.Property(nameof(StatusCodeResult.StatusCode)).EqualTo((int)HttpStatusCode.ServiceUnavailable));
         }
     }
 }
