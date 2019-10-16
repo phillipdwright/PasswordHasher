@@ -2,6 +2,7 @@ using Moq;
 using NUnit.Framework;
 using PasswordHasher.Core;
 using PasswordHasher.WebApi.Controllers;
+using PasswordHasher.WebApi.Models;
 
 namespace PasswordHasher.WebApi.Tests.Controllers
 {
@@ -29,6 +30,19 @@ namespace PasswordHasher.WebApi.Tests.Controllers
             var result = _classUnderTest.GetByJobId(jobId);
 
             Assert.That(result.Value, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void Create_ReturnsJobIdFromJobEngine()
+        {
+            var password = "A password";
+            var request = new CreateHashRequest { Password = password };
+            var expectedJobId = 2;
+            _mockJobEngine.Setup(je => je.StartJob(password)).Returns(expectedJobId);
+
+            var result = _classUnderTest.Create(request);
+
+            Assert.That(result.Value, Is.EqualTo(expectedJobId));
         }
     }
 }

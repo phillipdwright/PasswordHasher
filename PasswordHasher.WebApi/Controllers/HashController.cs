@@ -21,5 +21,12 @@ namespace PasswordHasher.WebApi.Controllers
             var jobResult = _jobEngine.GetJobResult(jobId);
             return Ok(jobResult);
         }
+
+        [HttpPost]
+        public AcceptedResult Create([FromBody] CreateHashRequest request)
+        {
+            var jobId = _jobEngine.StartJob(request.Password);
+            return Accepted(jobId);
+        }
     }
 }
