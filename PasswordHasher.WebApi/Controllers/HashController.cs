@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using PasswordHasher.Core;
+using PasswordHasher.Core.Jobs;
 using PasswordHasher.WebApi.Models;
 
 namespace PasswordHasher.WebApi.Controllers

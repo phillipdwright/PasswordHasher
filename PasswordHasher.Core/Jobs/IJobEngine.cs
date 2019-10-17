@@ -1,4 +1,4 @@
-namespace PasswordHasher.Core
+namespace PasswordHasher.Core.Jobs
 {
     public interface IJobEngine
     {

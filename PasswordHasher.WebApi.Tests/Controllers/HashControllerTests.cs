@@ -2,7 +2,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using PasswordHasher.Core;
+using PasswordHasher.Core.Jobs;
 using PasswordHasher.WebApi.Controllers;
 using PasswordHasher.WebApi.Models;
 

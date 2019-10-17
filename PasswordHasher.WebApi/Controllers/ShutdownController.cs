@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PasswordHasher.Core;
+using PasswordHasher.Core.Jobs;
 
 namespace PasswordHasher.WebApi.Controllers
 {
@@ -18,7 +18,7 @@ namespace PasswordHasher.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> ShutDown()
         {
-            await _jobBag.AwaitRemaining();
+            await _jobBag.AwaitRemainingAsync();
             Program.ShutDown();
             return Ok();
         }
