@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using PasswordHasher.Core;
+using PasswordHasher.Core.Stats;
 using PasswordHasher.WebApi.Models;
 
 namespace PasswordHasher.WebApi.Controllers

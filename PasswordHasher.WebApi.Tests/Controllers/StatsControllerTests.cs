@@ -1,6 +1,6 @@
 using Moq;
 using NUnit.Framework;
-using PasswordHasher.Core;
+using PasswordHasher.Core.Stats;
 using PasswordHasher.WebApi.Controllers;
 using PasswordHasher.WebApi.Models;
 

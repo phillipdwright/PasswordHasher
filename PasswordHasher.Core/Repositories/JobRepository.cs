@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using PasswordHasher.Core.Entities;
 
 namespace PasswordHasher.Core.Repositories
@@ -40,6 +41,11 @@ namespace PasswordHasher.Core.Repositories
             _dbContext.Jobs.Update(job);
             _dbContext.SaveChanges();
             return job;
+        }
+
+        public int Count()
+        {
+            return _dbContext.Jobs.Count();
         }
     }
 }

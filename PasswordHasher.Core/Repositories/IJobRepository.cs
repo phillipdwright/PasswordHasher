@@ -10,5 +10,6 @@ namespace PasswordHasher.Core.Repositories
         IEnumerable<Job> GetAll();
         Job Insert(Job job);
         Job Update(Job job);
+        int Count();
     }
 }
