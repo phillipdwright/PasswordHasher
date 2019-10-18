@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Autofac.Extensions.DependencyInjection;
 
 namespace PasswordHasher.WebApi
 {
@@ -15,7 +16,8 @@ namespace PasswordHasher.WebApi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .ConfigureServices(collection => collection.AddAutofac());
 
         public static void ShutDown() => WebHostTokenSource.Cancel();
     }
