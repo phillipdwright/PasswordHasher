@@ -24,7 +24,7 @@ namespace PasswordHasher.WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] CreateHashRequest request)
+        public ActionResult Create([FromForm] CreateHashRequest request)
         {
             var jobId = _jobEngine.StartJob(request.Password);
             if (!jobId.HasValue)
